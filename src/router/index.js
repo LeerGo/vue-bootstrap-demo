@@ -4,6 +4,7 @@ import QuizMenu from "../views/quiz/QuizMenu";
 import GameController from "../views/quiz/GameController";
 import GameOver from "../views/quiz/GameOver";
 import ItemList from "../components/home/ItemList";
+import TodoList from "../views/todo/TodoList";
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,10 @@ const routes = [
     name: 'quiz-result',
     path: '/quiz-vue/result',
     component: GameOver
+  }, {
+    name: 'todo',
+    path: '/todo',
+    component: TodoList
   }
 ]
 
