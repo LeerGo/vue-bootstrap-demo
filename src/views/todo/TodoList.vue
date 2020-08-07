@@ -10,11 +10,16 @@
     </b-container>
 
     <div v-if="taskQueue.length">
-      <b-container v-bind:key="index" v-for="(task,index) in taskQueue" class="mt-3 pl-3">
+      <!--
+      for循环是非常建议对列表项绑定:key, 这个key应当是固定且唯一的，可以是uuid，或者id。
+      不要绑定数组的index, 否则就会出现Vue项目中v-for数组删除第n项元素产生渲染错误。
+      这里是一个 bad demo
+      -->
+      <b-container v-bind:key="index" v-for="(task, index) in taskQueue" class="mt-3 pl-3">
         <b-row>
           <b-col>
             <b-avatar variant="success" :text="(index+1).toString()" size="1.5rem"></b-avatar>
-            <p class="ml-3 d-inline"> {{task.name}}
+            <p class="ml-3 d-inline"> {{ task.name }}
             </p>
           </b-col>
           <b-col cols="12" md="auto">
@@ -28,7 +33,6 @@
         </b-row>
         <hr>
       </b-container>
-
     </div>
 
     <div v-else class="mt-5 text-center">
@@ -52,7 +56,9 @@
         this.taskQueue[index].isDone = true
       },
       taskDelete(index) {
-        this.taskQueue = this.taskQueue.slice(index, 1)
+        // 直接对数组进行删除是无效的，所以使用 $delete 方法来处理
+        // this.taskQueue.slice(index, 1)
+        this.$delete(this.taskQueue, index)
       },
       onEnter() {
         if(this.inputValue.trim() === '') {
@@ -72,7 +78,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>
